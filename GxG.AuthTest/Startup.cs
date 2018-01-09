@@ -23,16 +23,16 @@ namespace GxG.AuthTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddIdentityServer(opt =>
                 {
                     /*opt.IssuerUri = "http://authtest";
                     opt.PublicOrigin = "http://authtest";*/
-                    
+
                 })
-                
+
                 .AddDeveloperSigningCredential()
-                .AddInMemoryIdentityResources(Resources.GetIdentityResources())
+                //.AddInMemoryIdentityResources(Resources.GetIdentityResources())
                 .AddInMemoryApiResources(Resources.GetApiResources())
                 .AddInMemoryClients(Clients.GetClients())
                 .AddTestUsers(Users.GetTestusers());

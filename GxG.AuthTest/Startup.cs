@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace GxG.AuthTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
 
             services.AddIdentityServer(opt =>
                 {
@@ -32,13 +34,18 @@ namespace GxG.AuthTest
                 })
 
                 .AddDeveloperSigningCredential()
-                //.AddInMemoryIdentityResources(Resources.GetIdentityResources())
+                .AddInMemoryIdentityResources(Resources.GetIdentityResources())
                 .AddInMemoryApiResources(Resources.GetApiResources())
                 .AddInMemoryClients(Clients.GetClients())
                 .AddTestUsers(Users.GetTestusers());
-            
 
-            services.AddMvc();
+            /*services.AddAuthentication()
+                .AddGoogle("Google", options =>
+                    {
+                        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                        options.ClientId = "792942029414-th3tqhafoposflerslh486mbtss09tlg.apps.googleusercontent.com";
+                        options.ClientSecret = "n09syXMjgxn9NXWbyPIvjr8u";
+                    });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +58,9 @@ namespace GxG.AuthTest
 
             app.UseIdentityServer();
 
-            app.UseMvc();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
+            
         }
     }
 }

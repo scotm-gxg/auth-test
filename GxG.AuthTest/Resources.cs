@@ -14,7 +14,7 @@ namespace GxG.AuthTest
             return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Email()
+                new IdentityResources.Profile()
             };
         }
 

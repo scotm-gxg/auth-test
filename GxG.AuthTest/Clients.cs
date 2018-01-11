@@ -27,6 +27,25 @@ namespace GxG.AuthTest
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets = { new Secret("my-shared-secret".Sha256())},
                     AllowedScopes = {"core.api"}
+                },
+                
+                new Client()
+                {
+                    ClientId = "mvc",
+                    ClientName = "MVC Client",
+                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+
+                    ClientSecrets = { new Secret("my-shared-secret".Sha256())},
+
+                    RedirectUris = { "http://localhost:5002/Home/About" },
+                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "core.api"
+                    },
+                    AllowOfflineAccess = true
                 }
             };
         }

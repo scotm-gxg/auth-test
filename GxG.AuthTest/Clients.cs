@@ -46,6 +46,29 @@ namespace GxG.AuthTest
                         "core.api"
                     },
                     AllowOfflineAccess = true
+                },
+
+                new Client()
+                {
+                    ClientId = "js",
+                    ClientName = "JavaScript Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    AccessTokenLifetime = 60,
+                    AbsoluteRefreshTokenLifetime = 60,
+                    RefreshTokenExpiration = TokenExpiration.Absolute,
+
+                    RedirectUris = {"http://localhost:5001/auth-callback", "http://localhost:5001/silent-refresh.html"},
+                    AllowedCorsOrigins = {"http://localhost:5001"},
+                    PostLogoutRedirectUris = {"http://localhost:5001/"},
+                    
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "core.api"
+                    }
                 }
             };
         }
